@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeudaZero — Liquidador Comparativo de Deudas y MSI</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>Deuda<span>Zero</span></h1>
+  <p>Simulador comparativo: Solo Mínimos vs. Bola de Nieve vs. Avalancha</p>
+</header>
+<main>
+  <section class="card">
+    <h2>1. Gestor de deudas</h2>
+    <form id="debtForm" novalidate>
+      <input type="hidden" id="debtId">
+      <label>Nombre <input id="name" required maxlength="40" placeholder="Ej. Tarjeta bancaria"></label>
+      <label>Tipo
+        <select id="type">
+          <option value="tarjeta">Tarjeta de Crédito</option>
+          <option value="prestamo">Préstamo Personal</option>
+          <option value="msi">Meses Sin Intereses</option>
+        </select>
+      </label>
+      <label>Saldo actual ($) <input id="balance" type="number" min="0.01" step="0.01" required></label>
+      <label>Tasa anual / CAT (%) <input id="rate" type="number" min="0" step="0.01" value="0" required></label>
+      <label>Pago mínimo mensual ($) <input id="min" type="number" min="0.01" step="0.01" required></label>
+      <div class="actions">
+        <button type="submit" id="saveBtn" class="primary">Agregar deuda</button>
+        <button type="button" id="cancelBtn" hidden>Cancelar edición</button>
+      </div>
+      <p id="formError" class="error" role="alert"></p>
+    </form>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nombre</th><th>Tipo</th><th>Saldo</th><th>CAT</th><th>Mínimo</th><th></th></tr></thead>
+        <tbody id="debtBody"></tbody>
+      </table>
+    </div>
+    <div class="actions">
+      <button id="demoBtn">Cargar Portafolio Demo</button>
+      <button id="exportBtn">Exportar JSON</button>
+      <button id="clearBtn" class="danger">Borrar todo</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. Abono extra mensual</h2>
+    <div class="extra">
+      <input type="range" id="extraRange" min="0" max="20000" step="100" value="0">
+      <input type="number" id="extraNum" min="0" step="50" value="0">
+    </div>
+    <p class="hint">Dinero adicional cada mes por encima de la suma de pagos mínimos.</p>
+  </section>
+
+  <section class="card">
+    <h2>3. Resultados comparativos</h2>
+    <div id="alerts"></div>
+    <div id="results" class="grid"></div>
+  </section>
+
+  <section class="card">
+    <h2>4. Evolución del saldo total</h2>
+    <canvas id="chart" height="360"></canvas>
+  </section>
+
+  <section class="card">
+    <h2>5. Cronograma de liquidación</h2>
+    <label class="inline">Estrategia
+      <select id="strategySel">
+        <option value="snowball">Bola de Nieve</option>
+        <option value="avalanche">Avalancha</option>
+        <option value="min">Solo Mínimos</option>
+      </select>
+    </label>
+    <ol id="timeline" class="timeline"></ol>
+  </section>
+</main>
+<footer>DeudaZero · Herramienta educativa, no constituye asesoría financiera.</footer>
+<script src="app.js"></script>
+</body>
+</html>
